@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Animation</title>
+    <style>
+        .text-container {
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            display: inline-block;
+            overflow: hidden;
+            height: 30px; /* Adjust based on font size */
+        }
+
+        .animated-text {
+            display: inline-block;
+            position: relative;
+            height: 30px; /* Adjust based on font size */
+            overflow: hidden;
+        }
+
+        .animated-text span {
+            position: absolute;
+            white-space: nowrap;
+            transition: top 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-container">
+        We specialize in <span class="animated-text"></span>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const words = ["focus", "confidence", "discipline", "motivation"];
+            const animatedText = document.querySelector('.animated-text');
+            let index = 0;
+
+            function changeWord() {
+                const nextWord = words[index];
+                animatedText.innerHTML = `<span>${nextWord}</span>`;
+                index = (index + 1) % words.length;
+            }
+
+            function animateWord() {
+                const span = animatedText.querySelector('span');
+                if (span) {
+                    span.style.top = '0';
+                    setTimeout(() => {
+                        span.style.top = '-100%';
+                    }, 1500); // Adjust timing for animation
+                }
+            }
+
+            setInterval(() => {
+                changeWord();
+                animateWord();
+            }, 2000); // Change word every 2 seconds
+            changeWord(); // Initial call to set the first word
+            animateWord(); // Initial animation
+        });
+    </script>
+</body>
+</html>
